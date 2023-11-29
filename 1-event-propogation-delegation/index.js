@@ -3,7 +3,7 @@
 ///////////////////////
 
 /* 
-Event Propagation (bubbling) is when an event
+Event Propagation (a.k.a bubbling) is when an event
 triggered by a child is detected by the parent.
 
 Two values to be aware of:
@@ -13,8 +13,8 @@ Two values to be aware of:
 To prevent events from bubbling up, use `event.stopPropagation()`
 */
 const testPropagation = (event) => {
-  console.log(`Event detected on #${event.target.id}`);
-  console.log(`Event handled by: #${event.currentTarget.id}`);
+  console.log(`Event detected on #${event.target.id} (event.target)`);
+  console.log(`Event handled by: #${event.currentTarget.id} (event.currentTarget)`);
 }
 
 document.querySelector('#outer').addEventListener('click', testPropagation);
@@ -43,7 +43,7 @@ container.addEventListener('click', (event) => {
   console.log('event handled by: ', event.currentTarget);
 
   const display = document.querySelector('#delegation-display');
-  if (event.target.matches('.arrow')) {
+  if (event.target.matches('.arrow') === true) {
     display.innerText = `Button Pressed: ${event.target.innerText}`;
   }
 
@@ -55,17 +55,21 @@ container.addEventListener('click', (event) => {
 
 /* 
 In this example, the event listener is on the parent ul element.
-It checks that the target was an li in the list
-If it was, it get the number shown by that li
-And creates a new li with that number + 1
+It checks that the target was an li in the list...
+If it was, it get the number shown by that li...
+And creates a new li with that number + 1...
 And appends it to the currentTarget (the ul)
 */
 const ul = document.querySelector('#counting-list');
 ul.addEventListener('click', (event) => {
+
+  console.log('event detected on: ', event.target);
+  console.log('event handled by: ', event.currentTarget);
+
   if (event.target.matches('li')) {
     const numberOfLiClicked = Number(event.target.innerText);
     const li = document.createElement('li');
     li.innerText = numberOfLiClicked + 1
-    event.currentTarget.append(li);
+    event.target.append(li);
   }
 });

@@ -90,16 +90,23 @@ This is good to be aware of for when we get to React but you should NOT use this
 
 The key concept to understand is that **child events can affect parent elements**. 
 
-"Event Propagation" is just a fancy way of saying “clicking on a child element affects the parents” 
+"Event Propagation" is just a fancy way of saying “clicking on a child element affects the parents”
 
-What is the order it affects them in?
+When an event is triggered by a child, it is detected by the parent.
 
-* _bubbling_ - default - means the child reacts first then the parent
-* _capturing_ - rare - means the child reacts last.
+```html
+<div id="outer">
+  <div id="middle">
+    <button id="inner">Click me!</button>
+  </div>
+</div>
+```
 
-When you click on a nested element:
-a. you can always see your actual target: `event.target`
-b. other elements can be made aware of this event and handle them. The handling Element is `event.currentTarget`
+Two values to be aware of:
+- `event.target` (the Element that fired the event)
+- `event.currentTarget` (the Element handling the event)
+
+To prevent events from bubbling up, use `event.stopPropagation()`
 
 ```js
 const testPropagation = (event) => {
@@ -112,11 +119,25 @@ document.querySelector('#middle').addEventListener('click', testPropagation);
 document.querySelector('#inner').addEventListener('click', testPropagation);
 ```
 
+In this example, because `#inner` is a child of `#middle` and `#outer`, clicking on `#inner` will trigger its own event handler as well as the event handlers of `#middle` and `#outer`.
+
+**Q: What would happen if we removed the event handlers for `#inner` and `#middle`?
+
 ## Event Delegation
 
 Event delegation is the idea that you can have **a single event listener** on a **parent element** that can handle events for all of its **children**. 
 
 This is useful for child elements that are added/removed dynamically. Like when a user adds a new item to a list.
+
+```html
+<ul id="counting-list">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+```
+
+This example has the `ul` listening for clicks on the child `li` Elements. If a click is detected, the number of the `li` that was clicked on is saved and a new `li` is appended to the list with that number plus 1. 
 
 ```js
 const ul = document.querySelector('#counting-list');
@@ -130,13 +151,14 @@ ul.addEventListener('click', (event) => {
 });
 ```
 
+Because the new `li` Elements are also children of the `ul`, the new `li` Elements are also clickable! We don't need to add additional event listeners for each new `li` because the `ul` will handle it.
+
+Here's the pattern: 
 1. Grab a parent element
-2. Have it listen for events, it will detect events triggered by its children
+2. Have it listen for events, it will detect events triggered by its children because of **propagation**
 3. Identify the target to decide what you want to do using `event.target.matches()`
 
 `event.target.classList.contains()` is also useful for identifying the target.
-
-It's so much cleaner to use delegation in vanilla than adding individual listeners to each element.
 
 ## Removing Event Listeners
 One of the reasons why passing a named callback function to your listeners is better is because you can then remove them if you need to. 
