@@ -2,8 +2,10 @@
 const eventHandler = (event) => console.log(event);
 
 // register an event listener on a button
-document.querySelector('button').addEventListener('click', eventHandler);
-document.querySelector('#mouse-area').addEventListener('mousemove', eventHandler);
+const button = document.querySelector('button')
+const mouseArea = document.querySelector('#mouse-area');
 
-// register these event listeners on the entire document
-document.addEventListener('keydown', eventHandler);
+// TODO:
+// add a 'click' handler for the button
+// add a 'mousemove' handler for the mouseArea
+// add a 'keydown' handler for the entire document

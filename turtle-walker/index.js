@@ -6,8 +6,8 @@ const player = document.querySelector("#player");
 const playerPosition = {
   x: 0,
   y: 0,
+  rotation: 0,
 }
-const colors = ['red', 'blue', 'green', 'yellow', 'indigo', 'orange'];
 
 //////////////////////////
 // DOM Helper Functions //
@@ -30,8 +30,8 @@ that the event was fired on
 */
 const handlePlayerClick = (event) => {
   // console.log(event);
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  event.target.style.background = color;
+  playerPosition.rotation += 90;
+  event.target.style.transform = `rotate(${playerPosition.rotation}deg)`
 };
 
 /* 
@@ -39,8 +39,11 @@ mousemove events have event.x and event.y properties for the
 position of the mouse on the screen when the event fires
 */
 const handleMouseMove = (event) => {
+
   // console.log(event);
-  movePlayer(event.x, event.y);
+  const xOffset = 35; // to help position the turtle in the middle of the mouse
+  const yOffset = 25; // to help position the turtle in the middle of the mouse
+  movePlayer(event.x - xOffset, event.y - yOffset);
 };
 
 /* 
