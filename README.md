@@ -4,6 +4,7 @@ An intro to events in the DOM
 
 **Table of Contents**
 - [Event Driven Architecture](#event-driven-architecture)
+- [First, an example:](#first-an-example)
 - [Event type, handlers, and the `event` object](#event-type-handlers-and-the-event-object)
 - [Good to know, not to use: inline handlers](#good-to-know-not-to-use-inline-handlers)
 - [Event Propagation](#event-propagation)
@@ -24,6 +25,10 @@ In **event-driven architecture**, some of the code that we write will only be ex
 * clicking a button
 * moving your mouse
 * using your keyboard
+
+![](./img/events.png)
+
+## First, an example:
 
 ```js
 // 1. select the element that will be the "target" of the event
