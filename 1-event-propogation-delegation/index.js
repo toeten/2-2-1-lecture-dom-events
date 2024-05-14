@@ -13,6 +13,7 @@ Two values to be aware of:
 To prevent events from bubbling up, use `event.stopPropagation()`
 */
 const testPropagation = (event) => {
+  event.stopPropagation() //our parent divs cover their ears!
   console.log(`Event detected on #${event.target.id} (event.target)`);
   console.log(`Event handled by: #${event.currentTarget.id} (event.currentTarget)`);
 }
@@ -20,7 +21,6 @@ const testPropagation = (event) => {
 document.querySelector('#outer').addEventListener('click', testPropagation);
 document.querySelector('#middle').addEventListener('click', testPropagation);
 document.querySelector('#inner').addEventListener('click', testPropagation);
-
 
 //////////////////////
 // Event Delegation //
@@ -30,6 +30,8 @@ document.querySelector('#inner').addEventListener('click', testPropagation);
 Event delegation refers to the process of using event 
 propagation (bubbling) to handle events at a higher level 
 in the DOM than the element on which the event originated
+  Basically the parent gives their children a chore based on who they are
+
 
 This means we can have a single event handler attached to
 the parent and decide what to do based on the event.target
