@@ -5,7 +5,8 @@ An intro to events in the DOM
 **Table of Contents**
 - [Event Driven Architecture](#event-driven-architecture)
 - [First, an example:](#first-an-example)
-- [Event type, handlers, and the `event` object](#event-type-handlers-and-the-event-object)
+- [Event type, handlers](#event-type-handlers)
+- [The `event` object](#the-event-object)
 - [Good to know, not to use: inline handlers](#good-to-know-not-to-use-inline-handlers)
 - [Event Propagation](#event-propagation)
 - [Event Delegation](#event-delegation)
@@ -48,7 +49,7 @@ An **event handler** is the function that is invoked when an event "fires".
 
 > See this in action in the `0-basic-examples/` website.
 
-## Event type, handlers, and the `event` object
+## Event type, handlers
 
 When you use `Element.addEventListener()` method, the first argument defines the event type which may be one of:
 - `click`
@@ -59,9 +60,10 @@ When you use `Element.addEventListener()` method, the first argument defines the
 - many more!
 
 The second argument is an **Event Handler**, a callback function that is invoked when the event fires.
+
 ```js
 // a generic event handler
-const eventHandler = (event) => console.log(event);
+const eventHandler = () => console.log('an event occurred!');
 
 // register an event listener on a button
 document.querySelector('button').addEventListener('click', eventHandler);
@@ -71,7 +73,21 @@ document.addEventListener('mousemove', eventHandler);
 document.addEventListener('keydown', eventHandler);
 ```
 
-When the event handler is invoked, it is given an `event` object as an argument. The `event` object has about the event, with different properties for different event types.
+## The `event` object
+
+When any event handler is invoked, it is given an `event` object as an argument. The `event` object has about the event, with different properties for different event types.
+
+```js
+// this event handler ignores the event argument
+const eventHandler = () => console.log('an event occurred!');
+
+// this event handler actually uses it!
+const printEvent = (event) => console.log(event);
+
+// we can assign multiple event handlers to an element
+document.querySelector('button').addEventListener('click', eventHandler);
+document.querySelector('button').addEventListener('click', printEvent);
+```
 
 Here are some essential `event` properties:
 
