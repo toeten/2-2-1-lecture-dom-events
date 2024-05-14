@@ -4,7 +4,7 @@ An intro to events in the DOM
 
 **Table of Contents**
 - [Event Driven Architecture](#event-driven-architecture)
-- [Event type, handlers, and the event object](#event-type-handlers-and-the-event-object)
+- [Event type, handlers, and the `event` object](#event-type-handlers-and-the-event-object)
 - [Good to know, not to use: inline handlers](#good-to-know-not-to-use-inline-handlers)
 - [Event Propagation](#event-propagation)
 - [Event Delegation](#event-delegation)
@@ -121,7 +121,7 @@ document.querySelector('#inner').addEventListener('click', testPropagation);
 
 In this example, because `#inner` is a child of `#middle` and `#outer`, clicking on `#inner` will trigger its own event handler as well as the event handlers of `#middle` and `#outer`.
 
-**Q: What would happen if we removed the event handlers for `#inner` and `#middle`?
+**Q: What would happen if we removed the event handlers for `#inner` and `#middle`?**
 
 ## Event Delegation
 
